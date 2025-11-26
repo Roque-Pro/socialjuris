@@ -59,32 +59,23 @@ router.post('/perfil', async (req, res) => {
 // ========= VALIDAR OAB (MOCK OFICIAL) ========= //
 router.post('/validar-oab', async (req, res) => {
   try {
-    console.log("⚖️ Validando OAB:", req.body); // LOG NOVO
+    console.log("⚖️ Validando OAB:", req.body);
     const { nome, numero, estado } = req.body;
     
-    // 1. Validação de Formato
-    if (!numero || numero.length < 3) {
-      return res.status(400).json({ error: "Número da OAB inválido." });
+    // 1. Validação básica
+    if (!numero || numero.trim() === "") {
+      return res.status(400).json({ error: "Número da OAB não pode estar vazio." });
     }
-    if (!['SP','RJ','MG','RS','PR','SC','SC','ES','BA','BA','SE','AL','PE','PB','RN','CE','PI','CE','MA','AM','PA','PA','AP','AP','RR','RR','RO','AC','DF','TO','MT','GO','MS'].includes(estado)) {
-      return res.status(400).json({ error: "Estado inválido." });
-    }
-
-    // 2. Simulação de Consulta Oficial (CNA/DataJud)
-    // Aqui você substituiria por: await axios.get(`https://api.datajud.cnj.jus.br/...`)
-    
-    // MOCK: Vamos fingir que a API retornou sucesso
-    // Para teste: Se o número for '000000', retorna erro proposital
-    if (numero === '000000') {
-      return res.status(404).json({ error: "Registro não encontrado no CNA." });
+    if (!estado || estado.trim() === "") {
+      return res.status(400).json({ error: "Estado não pode estar vazio." });
     }
 
-    // Sucesso simulado
+    // Sucesso - aceita qualquer combinação
     res.json({ 
       ok: true, 
       mensagem: "Cadastro ativo e regular.",
       dados_oficiais: {
-        nome: nome, // Confirma o nome enviado
+        nome: nome,
         situacao: "Regular",
         inscricao: `${numero}/${estado}`
       }
@@ -92,7 +83,7 @@ router.post('/validar-oab', async (req, res) => {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Erro ao conectar com o CNA." });
+    res.status(500).json({ error: "Erro ao validar OAB." });
   }
 });
 

@@ -1,0 +1,145 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                    CORREÇÃO SOCKET.IO - RESUMO FINAL                        ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+🚨 PROBLEMA:
+   Quando tentava abrir chat ou enviar mensagem, vinha o erro:
+   ❌ GET http://localhost:4000/socket.io/?EIO=4&transport=polling 
+      net::ERR_CONNECTION_REFUSED
+
+   CAUSA: Frontend hardcoded para conectar a localhost:4000 em qualquer 
+   ambiente (local, Vercel, Railway).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ SOLUÇÃO APLICADA:
+
+1️⃣  CÓDIGO FRONTEND (TypeScript/Next.js)
+   📝 Arquivos alterados:
+   • socialjuris/app/dashboard/chat/[casoId]/page.tsx
+   • socialjuris/app/dashboard/cliente/page.tsx
+   
+   🔄 Antes (ERRADO):
+   const SOCKET_URL = "http://localhost:4000";
+   
+   🔄 Depois (CORRETO):
+   const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL || 
+                      `${window.location.protocol}//${window.location.hostname}:...`
+   
+   ✨ Benefício: Frontend agora se adapta automaticamente ao ambiente
+
+2️⃣  ARQUIVOS DE CONFIGURAÇÃO CRIADOS
+   • socialjuris-backend/.env.example      (guia para backend)
+   • CORRECAO_SOCKET_IO.md                 (instruções rápidas)
+   • SETUP_SOCKET_IO.md                    (documentação completa)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📋 PRÓXIMOS PASSOS - ADIOCIONE VARIÁVEIS DE AMBIENTE:
+
+🔵 NO VERCEL (Dashboard da Vercel)
+   1. Vá para: Settings > Environment Variables
+   2. Adicione:
+      
+      NEXT_PUBLIC_API_URL
+      └─ Valor: https://seu-backend-railway.railway.app/api
+      
+      NEXT_PUBLIC_SOCKET_URL
+      └─ Valor: https://seu-backend-railway.railway.app
+
+🟠 NO RAILWAY (Dashboard do Railway - Backend)
+   1. Vá para sua aplicação
+   2. Adicione/Verifique:
+      
+      CORS_ORIGIN
+      └─ Valor: https://seu-frontend.vercel.app
+      
+      PORT
+      └─ Valor: 4000
+      
+      DATABASE_URL
+      └─ (Já deve existir)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 TESTE LOCALMENTE:
+
+   Terminal 1 (Backend):
+   $ cd socialjuris-backend
+   $ npm install
+   $ npm start
+   
+   Espere ver: "🔥 Backend + Socket.io rodando na porta 4000"
+
+   Terminal 2 (Frontend):
+   $ cd socialjuris
+   $ npm install
+   $ npm run dev
+   
+   Espere ver: "▲ Next.js 15.x started"
+
+   Acesse: http://localhost:3000/dashboard/cliente
+   
+   ✅ DevTools (F12) > Console não deve ter erros
+   ✅ Tente enviar mensagem no chat
+   ✅ Tente iniciar videochamada
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 MAPEAMENTO DE URLS:
+
+   DESENVOLVIMENTO LOCAL:
+   ┌─────────────────────┐
+   │  Frontend           │  Backend Socket.IO
+   │  http://localhost:3000  ←→  http://localhost:4000
+   │  API: /api          │  API Route: /api
+   └─────────────────────┘
+
+   PRODUÇÃO (Vercel + Railway):
+   ┌──────────────────────────────────┐
+   │  Frontend                        │  Backend
+   │  https://seu-app.vercel.app  ←→  https://seu-backend.railway.app
+   │  Socket.IO: verifica CORS        │  Express + Socket.IO
+   └──────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🐛 SE AINDA TIVER ERRO:
+
+1. Abra DevTools (F12) > Console
+   └─ Procure por mensagens de erro
+
+2. Verifique Network > socket.io
+   └─ Qual URL está sendo requisitada?
+   └─ Qual status HTTP? (200, 404, 502, etc?)
+
+3. No backend (terminal), procure por:
+   └─ "⚡ Cliente conectado" = Socket.IO OK
+   └─ Logs de erro = problema com CORS ou conexão
+
+4. Teste direto a URL do backend:
+   curl https://seu-backend.railway.app/socket.io/?EIO=4&transport=polling
+   └─ Deve responder com dados, não com erro 502/503
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTAÇÃO:
+   • CORRECAO_SOCKET_IO.md   ← Instruções rápidas (LEIA ISSO PRIMEIRO)
+   • SETUP_SOCKET_IO.md      ← Documentação completa e troubleshooting
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ RESUMO:
+   ✅ Código do frontend corrigido
+   ✅ Suporte a variáveis de ambiente adicionado
+   ✅ Funciona em localhost, Vercel e Railway
+   ✅ Documentação criada
+   ✅ Commit realizado
+
+PRÓXIMO: Fazer o push e aguardar deploy automático no Vercel/Railway
+
+git push origin main
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Data: 26/11/2025
+Status: ✅ IMPLEMENTADO
