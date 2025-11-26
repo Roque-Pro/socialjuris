@@ -37,7 +37,7 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (user) {
-      if (user.tipo !== 'admin') {
+      if (user.tipo !== "admin") {
         alert("Acesso negado. Área restrita a administradores.");
         router.push("/login");
         return;
@@ -48,12 +48,12 @@ export default function AdminDashboard() {
 
   async function carregarDados() {
     try {
-      const headers = { "admin_id": user?.id || "" };
-      
+      const headers = { admin_id: user?.id || "" };
+
       const [dadosKPI, dadosPendentes, dadosOrigem] = await Promise.all([
         apiFetch("/admin/dashboard", { headers }),
         apiFetch("/admin/advogados/pendentes", { headers }),
-        apiFetch("/admin/metricas/origem", { headers })
+        apiFetch("/admin/metricas/origem", { headers }),
       ]);
 
       setKpis(dadosKPI);
@@ -68,11 +68,11 @@ export default function AdminDashboard() {
 
   async function handleAprovar(advId: string) {
     if (!confirm("Confirma que verificou a OAB deste advogado?")) return;
-    
+
     try {
       await apiFetch(`/admin/advogados/${advId}/aprovar`, {
         method: "POST",
-        headers: { "admin_id": user?.id || "" }
+        headers: { admin_id: user?.id || "" },
       });
       alert("Advogado aprovado!");
       carregarDados(); // Recarrega lista
@@ -81,7 +81,8 @@ export default function AdminDashboard() {
     }
   }
 
-  if (!user || loading) return <div className="p-8 text-center">Carregando Admin...</div>;
+  if (!user || loading)
+    return <div className="p-8 text-center">Carregando Admin...</div>;
 
   return (
     <div className="min-h-screen bg-gray-100 font-sans">
@@ -89,48 +90,73 @@ export default function AdminDashboard() {
       <header className="bg-gray-900 text-white shadow-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="bg-red-600 p-2 rounded-lg font-bold text-xl tracking-tighter">SJ ADMIN</div>
+            <div className="bg-red-600 p-2 rounded-lg font-bold text-xl tracking-tighter">
+              SJ ADMIN
+            </div>
           </div>
-          <button onClick={logout} className="text-gray-300 hover:text-white text-sm">Sair</button>
+          <button
+            onClick={logout}
+            className="text-gray-300 hover:text-white text-sm"
+          >
+            Sair
+          </button>
         </div>
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-3xl font-bold text-gray-800 mb-8">Visão Geral do Sistema</h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-8">
+          Visão Geral do Sistema
+        </h1>
 
         {/* KPIs Cards */}
         {kpis && (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500 uppercase font-bold">Total Usuários</p>
-              <p className="text-3xl font-bold text-gray-900">{kpis.total_users}</p>
+              <p className="text-sm text-gray-500 uppercase font-bold">
+                Total Usuários
+              </p>
+              <p className="text-3xl font-bold text-gray-900">
+                {kpis.total_users}
+              </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500 uppercase font-bold">Total Casos</p>
-              <p className="text-3xl font-bold text-blue-600">{kpis.total_casos}</p>
-            </div>
-             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500 uppercase font-bold">Novas Demandas</p>
-              <p className="text-3xl font-bold text-green-600">{kpis.casos_novos}</p>
+              <p className="text-sm text-gray-500 uppercase font-bold">
+                Total Casos
+              </p>
+              <p className="text-3xl font-bold text-blue-600">
+                {kpis.total_casos}
+              </p>
             </div>
             <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-              <p className="text-sm text-gray-500 uppercase font-bold">OABs Pendentes</p>
-              <p className="text-3xl font-bold text-orange-500">{kpis.advogados_pendentes}</p>
+              <p className="text-sm text-gray-500 uppercase font-bold">
+                Novas Demandas
+              </p>
+              <p className="text-3xl font-bold text-green-600">
+                {kpis.casos_novos}
+              </p>
             </div>
-          </div>
-        )}
-
+            <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+              <p className="text-sm text-gray-500 uppercase font-bold">
+                OABs Pendentes
+              </p>
+              <p className="text-3xl font-bold text-orange-500">
+                {kpis.advogados_pendentes}
+              </p>
+            </div>
           </div>
         )}
 
         {/* Grid Layout: Métricas e Lista */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          
-          {/* Coluna Esquerda: Lista de Verificação (Maior) */}
+          {/* Coluna Esquerda: Lista de Verificação */}
           <div className="lg:col-span-2 bg-white rounded-xl shadow-lg overflow-hidden h-fit">
             <div className="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-              <h2 className="text-lg font-bold text-gray-800">Advogados Aguardando Verificação</h2>
-              <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-bold">{pendentes.length} pendentes</span>
+              <h2 className="text-lg font-bold text-gray-800">
+                Advogados Aguardando Verificação
+              </h2>
+              <span className="bg-orange-100 text-orange-800 px-2 py-1 rounded text-xs font-bold">
+                {pendentes.length} pendentes
+              </span>
             </div>
 
             {pendentes.length === 0 ? (
@@ -152,16 +178,20 @@ export default function AdminDashboard() {
                     <tr key={adv.id} className="hover:bg-gray-50 transition">
                       <td className="px-6 py-4 font-medium text-gray-900">
                         {adv.nome}
-                        <div className="text-xs text-gray-400 font-normal">{adv.email}</div>
+                        <div className="text-xs text-gray-400 font-normal">
+                          {adv.email}
+                        </div>
                       </td>
                       <td className="px-6 py-4">
                         <span className="bg-gray-100 px-2 py-1 rounded font-mono text-gray-800 border border-gray-300">
                           {adv.oab_numero}/{adv.oab_estado}
                         </span>
                       </td>
-                      <td className="px-6 py-4">{new Date(adv.criado_em).toLocaleDateString()}</td>
+                      <td className="px-6 py-4">
+                        {new Date(adv.criado_em).toLocaleDateString()}
+                      </td>
                       <td className="px-6 py-4 text-right">
-                        <button 
+                        <button
                           onClick={() => handleAprovar(adv.id)}
                           className="text-green-600 hover:text-green-800 font-bold border border-green-200 hover:bg-green-50 px-3 py-1 rounded transition"
                         >
@@ -177,31 +207,43 @@ export default function AdminDashboard() {
 
           {/* Coluna Direita: Métricas de Origem */}
           <div className="bg-white rounded-xl shadow-lg overflow-hidden h-fit">
-             <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
-                <h2 className="text-lg font-bold text-gray-800">Origem dos Usuários</h2>
-             </div>
-             <div className="p-6">
-                {metricasOrigem.length === 0 ? (
-                  <p className="text-gray-500 text-center">Sem dados ainda.</p>
-                ) : (
-                  <div className="space-y-4">
-                    {metricasOrigem.map((item, index) => (
-                      <div key={index} className="flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className={`w-3 h-3 rounded-full ${index === 0 ? 'bg-blue-500' : 'bg-gray-300'}`}></div>
-                          <span className="text-gray-700 font-medium capitalize">{item.origem.replace('_', ' ')}</span>
-                        </div>
-                        <span className="font-bold text-gray-900">{item.total}</span>
+            <div className="px-6 py-4 border-b border-gray-200 bg-gray-50">
+              <h2 className="text-lg font-bold text-gray-800">
+                Origem dos Usuários
+              </h2>
+            </div>
+            <div className="p-6">
+              {metricasOrigem.length === 0 ? (
+                <p className="text-gray-500 text-center">Sem dados ainda.</p>
+              ) : (
+                <div className="space-y-4">
+                  {metricasOrigem.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between"
+                    >
+                      <div className="flex items-center gap-2">
+                        <div
+                          className={`w-3 h-3 rounded-full ${
+                            index === 0 ? "bg-blue-500" : "bg-gray-300"
+                          }`}
+                        ></div>
+                        <span className="text-gray-700 font-medium capitalize">
+                          {item.origem.replace("_", " ")}
+                        </span>
                       </div>
-                    ))}
-                  </div>
-                )}
-                <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400 text-center">
-                  Monitoramento em tempo real
+                      <span className="font-bold text-gray-900">
+                        {item.total}
+                      </span>
+                    </div>
+                  ))}
                 </div>
-             </div>
+              )}
+              <div className="mt-6 pt-4 border-t border-gray-100 text-xs text-gray-400 text-center">
+                Monitoramento em tempo real
+              </div>
+            </div>
           </div>
-
         </div>
       </main>
     </div>
