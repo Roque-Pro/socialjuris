@@ -1,0 +1,56 @@
+Escopo do Projeto – Plataforma de Conexão
+Jurídica
+Este documento apresenta o escopo completo da plataforma jurídica solicitada, contemplando
+todas as funcionalidades discutidas: encaminhamento inteligente de clientes, sistema de consultas,
+painel para advogados, integração com redes sociais, certificação OAB e estrutura para expansão
+futura.
+1. Cadastro de Usuários
+- Clientes podem se cadastrar rapidamente.
+- Opção de entrar via redes sociais (ex.: login com Facebook).
+- Identificação automática da origem (grupo do Facebook, anúncio ou link rastreável).
+2. Triagem da Demanda
+- Cliente informa a área jurídica da necessidade.
+- Sistema direciona automaticamente para o advogado mais adequado.
+- Mecanismos possíveis:
+• regras internas (área + disponibilidade + região)
+• triagem inteligente usando processamento de texto
+• análise manual por administrador (fallback)
+3. Encaminhamento ao Advogado
+- Painel exclusivo para cada advogado.
+- Histórico de demandas recebidas.
+- Notificações em tempo real.
+- Configuração de consultas gratuitas ou pagas.
+4. Certificação e Segurança
+- Verificação automática via número da OAB.
+- Consulta de existência e validade do registro.
+- Registro da comarca.
+- Sistema antifraude contra falsos advogados e falsos clientes.
+- Painel administrativo com validação manual e alertas.
+5. Consultas Online
+- Sala de atendimento integrada (vídeo/chat).
+- Agendamento ou atendimento imediato.
+- Histórico de conversas e registros.
+6. Integração com Facebook para Métricas
+- Login via Facebook.
+- Marcação automática de usuários que vierem do grupo.
+- Relatórios:
+• quantas pessoas do grupo migraram para a plataforma
+• quantos compraram ferramentas
+• engajamento interno
+7. Painel Administrativo
+- Controle de usuários, advogados, demandas e métricas.
+- Filtros por área, comarca, status e origem.
+- Gestão de permissões.
+8. Estrutura para Fase 2 – Processos Jurídicos
+- Base preparada para integrar andamentos de processos.
+- Possibilidade futura de cálculo automático de percentuais para monetização.
+- Registro de status e resultados.
+9. Futuras Expansões
+- Notificações automáticas ao cliente.
+- Automação de documentos.
+- Analytics avançado.
+- Integração com sistemas jurídicos externos.
+Conclusão
+Esta plataforma entrega segurança, automação, inteligência de encaminhamento e capacidade de
+escalar para sistemas jurídicos completos. O projeto foi estruturado para crescer com o tempo,
+mantendo confiabilidade, credibilidade e rastreabilidade total de origens e métricas.

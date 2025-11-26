@@ -1,0 +1,13 @@
+{
+  "name": "socialjuris-root",
+  "version": "1.0.0",
+  "description": "Raiz do projeto SocialJuris",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd socialjuris-backend && npm run dev",
+    "dev:frontend": "cd socialjuris && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

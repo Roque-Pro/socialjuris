@@ -1,0 +1,5 @@
+### Teste ping
+GET http://localhost:4000/api/ping
+
+### Teste root
+GET http://localhost:4000/

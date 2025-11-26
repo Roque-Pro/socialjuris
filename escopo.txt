@@ -1,0 +1,59 @@
+# Escopo do Projeto – SocialJuris (Status: Concluído 🚀)
+
+Este documento reflete o estado final da plataforma jurídica desenvolvida, contemplando todas as funcionalidades implementadas e entregues.
+
+## 1. Cadastro e Autenticação (✅ Entregue)
+- **Clientes e Advogados:** Fluxos de cadastro separados com identificação de tipo.
+- **Rastreamento de Origem:** Sistema captura parâmetros de URL (ex: `?origem=facebook`) para métricas de marketing.
+- **Login Social:** Botão de "Entrar com Facebook" implementado (Frontend Mock pronto para integração SDK).
+- **Segurança:** Senhas criptografadas (bcrypt) e autenticação via Context API.
+
+## 2. Triagem Inteligente da Demanda (✅ Entregue com IA)
+- **Formulário Preditivo:** O sistema analisa o texto digitado pelo cliente em tempo real e sugere automaticamente a área jurídica (ex: digitou "demissão" -> sugere "Trabalhista").
+- **UX Premium:** Animações visuais e feedback instantâneo para o usuário.
+
+## 3. Painel do Advogado (✅ Entregue)
+- **Feed de Oportunidades:** Lista de casos novos disponíveis para captação.
+- **Sistema de Match:** Botão "Atender Cliente" que vincula instantaneamente o caso ao advogado.
+- **Meus Casos:** Aba dedicada para gestão dos clientes em atendimento.
+- **Contato Rápido:** Botões diretos para enviar e-mail ou abrir chat.
+
+## 4. Certificação e Segurança (✅ Entregue)
+- **Verificação OAB:** Advogados se cadastram como "Pendentes".
+- **Painel de Aprovação:** Administrador visualiza dados e aprova manualmente o acesso do advogado à plataforma.
+
+## 5. Comunicação em Tempo Real (✅ Entregue)
+- **Chat Integrado:** Sala de bate-papo exclusiva para cada caso, com histórico persistente no banco de dados.
+- **Tecnologia:** Implementado com WebSocket (Socket.io) para mensagens instantâneas.
+- **Vídeo Chamada:** Botão "Iniciar Vídeo" que gera link automático de sala de reunião (Jitsi Meet) e envia no chat.
+
+## 6. Painel Administrativo (✅ Entregue)
+- **KPIs e Métricas:** Dashboard com total de usuários, casos e advogados.
+- **Análise de Origem:** Gráfico mostrando a conversão de usuários por canal de aquisição (ex: Orgânico vs Facebook).
+- **Gestão de Usuários:** Controle total de aprovações de advogados.
+
+## 7. Pontos de Atenção e Integrações Externas (⚠️ Importante)
+
+### Validação Oficial de OAB
+- **Situação Atual:** Implementada uma **Simulação Inteligente** ("Mock Profissional"). O sistema valida o formato (UF/Número) e simula o sucesso para testes.
+- **Motivo:** O Conselho Federal da OAB (CNA) não disponibiliza API pública gratuita.
+- **Solução para Produção:** A arquitetura do backend está pronta ("API Ready"). Para validar oficialmente, é necessário contratar um serviço de terceiros (ex: Infosimples, BigDataCorp ou DataJud) e inserir a chave de API no código.
+- **Custo Estimado:** Varia por fornecedor (geralmente R$ 0,20 a R$ 0,50 por consulta).
+
+### Login com Facebook
+- **Situação Atual:** Botão implementado visualmente com lógica preparada.
+- **Ação Necessária:** O cliente precisa criar uma conta no **Facebook Developers**, obter o `App ID` e configurar no frontend para ativar a SDK oficial.
+
+---
+
+## Stack Tecnológico Utilizado
+- **Frontend:** Next.js 15 (App Router), TypeScript, Tailwind CSS, Framer Motion.
+- **Backend:** Node.js, Express.
+- **Banco de Dados:** PostgreSQL (Supabase).
+- **Realtime:** Socket.io (WebSockets).
+- **Ícones:** Lucide React.
+
+## Próximos Passos (Roadmap Futuro / Pós-MVP)
+- Integração final da SDK do Facebook Login.
+- Automação da validação de OAB via API externa (CNA).
+- Implementação de pagamentos (Stripe/Asaas) para consultas pagas.
