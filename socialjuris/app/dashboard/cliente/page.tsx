@@ -18,7 +18,9 @@ import {
 import { motion, AnimatePresence } from "framer-motion"; // Importar AnimatePresence
 
 // URL do Socket
-const SOCKET_URL = "http://localhost:4000";
+const SOCKET_URL = typeof window !== 'undefined' 
+  ? (process.env.NEXT_PUBLIC_SOCKET_URL || `${window.location.protocol}//${window.location.hostname}:${window.location.port || (window.location.protocol === 'https:' ? 443 : 80)}`)
+  : "http://localhost:4000";
 
 interface Caso {
   id: string;

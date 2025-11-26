@@ -8,7 +8,9 @@ import io from "socket.io-client";
 import { Video, ArrowLeft, Send, Paperclip, File, Image as ImageIcon, CheckCircle, Star } from "lucide-react"; // Ícones novos
 
 // Configuração do Socket (URL do backend)
-const SOCKET_URL = "http://localhost:4000";
+const SOCKET_URL = typeof window !== 'undefined' 
+  ? (process.env.NEXT_PUBLIC_SOCKET_URL || `${window.location.protocol}//${window.location.hostname}:${window.location.port || (window.location.protocol === 'https:' ? 443 : 80)}`)
+  : "http://localhost:4000";
 
 interface Mensagem {
   id: string;
@@ -96,10 +98,11 @@ export default function ChatPage({ params }: { params: Promise<{ casoId: string 
     formData.append("arquivo", file);
 
     try {
-      const res = await fetch("http://localhost:4000/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+       const uploadUrl = `${SOCKET_URL}/api/upload`;
+       const res = await fetch(uploadUrl, {
+         method: "POST",
+         body: formData,
+       });
       
       const data = await res.json();
       if (data.ok) {
