@@ -26,13 +26,17 @@ const server = http.createServer(app); // Criar servidor HTTP cru
 // Configurar Socket.io
 const io = new Server(server, {
   cors: {
-    origin: "*", // Em produção, restringir para a URL do front
-    methods: ["GET", "POST"]
+    origin: process.env.CORS_ORIGIN || "*",
+    methods: ["GET", "POST"],
+    credentials: true
   }
 });
 
 // middlewares básicos
-app.use(cors({ origin: "*" })); // LIBERAR GERAL
+app.use(cors({ 
+  origin: process.env.CORS_ORIGIN || "*",
+  credentials: true
+}));
 app.use(express.json());
 
 // Middleware de Log (Para ver se a requisição chega)

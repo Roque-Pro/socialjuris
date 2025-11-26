@@ -1,5 +1,5 @@
-// Conexão Direta (SPA Mode) - Confirmado porta 4000 viva
-const API_URL = "http://localhost:4000/api";
+// URL da API - usa variável de ambiente ou localhost para desenvolvimento
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:4000/api";
 
 export async function apiFetch(endpoint: string, options: RequestInit = {}) {
   const res = await fetch(`${API_URL}${endpoint}`, {
