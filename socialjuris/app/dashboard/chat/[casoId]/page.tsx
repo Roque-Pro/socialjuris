@@ -8,9 +8,24 @@ import io from "socket.io-client";
 import { Video, ArrowLeft, Send, Paperclip, File, Image as ImageIcon, CheckCircle, Star } from "lucide-react"; // Ícones novos
 
 // Configuração do Socket (URL do backend)
-const SOCKET_URL = typeof window !== 'undefined' 
-  ? (process.env.NEXT_PUBLIC_SOCKET_URL || `${window.location.protocol}//${window.location.hostname}:${window.location.port || (window.location.protocol === 'https:' ? 443 : 80)}`)
-  : "http://localhost:4000";
+const getSocketURL = () => {
+  if (typeof window === 'undefined') return "http://localhost:4000";
+  
+  // Em produção, SEMPRE use a variável de ambiente
+  if (process.env.NEXT_PUBLIC_SOCKET_URL) {
+    return process.env.NEXT_PUBLIC_SOCKET_URL;
+  }
+  
+  // Apenas em desenvolvimento local, use localhost
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return 'http://localhost:4000';
+  }
+  
+  // Fallback (não deve chegar aqui)
+  return "http://localhost:4000";
+};
+
+const SOCKET_URL = getSocketURL();
 
 interface Mensagem {
   id: string;
