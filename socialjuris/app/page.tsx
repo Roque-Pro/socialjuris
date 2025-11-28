@@ -2,20 +2,20 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans">
+    <div className="min-h-screen flex flex-col bg-white text-gray-900 font-sans overflow-hidden">
       {/* Navbar */}
-      <nav className="w-full px-6 py-4 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-md z-50">
+      <nav className="w-full px-4 sm:px-6 py-4 flex justify-between items-center border-b border-gray-100 sticky top-0 bg-white/90 backdrop-blur-md z-50">
         <div className="flex items-center gap-2">
-          <div className="bg-blue-600 text-white p-1.5 rounded font-bold text-xl tracking-tighter">SJ</div>
-          <span className="font-bold text-xl tracking-tight">SocialJuris</span>
+          <div className="bg-blue-600 text-white p-1.5 rounded font-bold text-lg sm:text-xl tracking-tighter">SJ</div>
+          <span className="font-bold text-lg sm:text-xl tracking-tight">SocialJuris</span>
         </div>
-        <div className="flex gap-4">
-          <Link href="/login" className="text-sm font-medium text-gray-600 hover:text-blue-600 transition">
+        <div className="flex gap-3 sm:gap-4">
+          <Link href="/login" className="text-xs sm:text-sm font-medium text-gray-600 hover:text-blue-600 transition">
             Entrar
           </Link>
           <Link 
             href="/register" 
-            className="text-sm font-medium bg-blue-600 text-white px-4 py-2 rounded-full hover:bg-blue-700 transition shadow-sm"
+            className="text-xs sm:text-sm font-medium bg-blue-600 text-white px-3 sm:px-4 py-2 rounded-full hover:bg-blue-700 transition shadow-sm"
           >
             Cadastrar
           </Link>
@@ -23,39 +23,39 @@ export default function Home() {
       </nav>
 
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center px-6 py-20 text-center bg-gradient-to-b from-white to-blue-50">
-        <div className="max-w-4xl mx-auto space-y-8 animate-fade-in-up">
-          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-gray-900 leading-tight">
+      <main className="flex-1 flex flex-col items-center justify-center px-4 sm:px-6 py-12 sm:py-20 text-center bg-gradient-to-b from-white to-blue-50 overflow-hidden">
+        <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8 animate-fade-in-up">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 leading-tight">
             Conexão jurídica <span className="text-blue-600">rápida</span> e <span className="text-blue-600">segura</span>.
           </h1>
           
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
             Encontramos o advogado ideal para o seu caso em minutos. 
             Sem burocracia, com triagem inteligente e profissionais verificados pela OAB.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 pt-2 sm:pt-4">
             <Link 
               href="/register?tipo=cliente&origem=landing_hero"
-              className="w-full sm:w-auto px-8 py-4 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 text-white font-bold rounded-lg shadow-lg hover:bg-blue-700 hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               👤 Preciso de um Advogado
             </Link>
             <Link 
               href="/register?tipo=advogado&origem=landing_hero"
-              className="w-full sm:w-auto px-8 py-4 bg-white text-gray-800 font-bold border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 hover:border-gray-300 transition flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white text-gray-800 font-bold border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 hover:border-gray-300 transition flex items-center justify-center gap-2 text-sm sm:text-base"
             >
               ⚖️ Sou Advogado
             </Link>
           </div>
           
-          <div className="pt-12 flex items-center justify-center gap-8 text-gray-400 text-sm font-medium uppercase tracking-widest">
+          <div className="pt-8 sm:pt-12 flex flex-wrap items-center justify-center gap-4 sm:gap-8 text-gray-400 text-xs sm:text-sm font-medium uppercase tracking-widest">
             <span>Trabalhista</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>Cível</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>Família</span>
-            <span>•</span>
+            <span className="hidden sm:inline">•</span>
             <span>Criminal</span>
           </div>
         </div>

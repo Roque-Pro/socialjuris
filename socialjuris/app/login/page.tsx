@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import { apiFetch } from "../../utils/api";
-import Footer from "../../components/Footer";
 
 export default function LoginPage() {
   const { login } = useAuth();
@@ -78,7 +77,6 @@ export default function LoginPage() {
           Não tem conta? <a href="/register" className="text-blue-600 hover:text-blue-700 font-semibold transition">Cadastre-se</a>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
